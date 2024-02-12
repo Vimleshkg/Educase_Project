@@ -1,25 +1,44 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react'
+import Main from './Main'
+import {RouterProvider, createBrowserRouter} from 'react-router-dom'
+import Login from './Login'
+import Signup from './Signup'
+import Profile from './Profile'
+import myContext from './useContext'
 
-function App() {
+const App = () => {
+
+  const [Auth, setAuth]= useState({email:"",password:""});
+
+  const myRouter= createBrowserRouter([
+    {
+      path:'/',
+      element:<Main/>
+    } ,
+    {
+      path:'/login',
+      element:<Login/>
+    },
+    {
+      path:'/signup',
+      element:<Signup/>
+    },
+    {
+      path:'/profile',
+      element:<Profile/>
+    }
+    
+    ])
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+     < myContext.Provider value={{Auth, setAuth}}  >
+    <RouterProvider router={myRouter}>
+    <div>
+   
     </div>
-  );
+    </RouterProvider>
+    </myContext.Provider>
+
+  )
 }
 
-export default App;
+export default App
